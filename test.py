@@ -19,8 +19,11 @@ app = Flask(__name__)
 def personal_characteristics(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/horoscope/personal-characteristics"
     params = {"personId": personId}
+    print("Here is the personId",params)
     response = requests.get(url, params=params)
     return {"personal_characteristics": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
+
+    
 
 def ascendent_report(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/horoscope/ascendant-report"
