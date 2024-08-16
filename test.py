@@ -9,10 +9,8 @@ import streamlit as st
 
 
 load_dotenv()
-#personId=1
 os.environ["GROQ_API_KEY"] = "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"
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-personId= 1
 MODEL = 'llama3-groq-70b-8192-tool-use-preview'
 api_key = "94727561-cbcb-5587-bbe1-4faf6237ef4f"
 
