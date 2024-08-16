@@ -19,7 +19,7 @@ app = Flask(__name__)
 def personal_characteristics(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/horoscope/personal-characteristics"
     params = {"personId": personId}
-    print("Here is the personId",params)
+    print("Here is the personId:1",params)
     response = requests.get(url, params=params)
     return {"personal_characteristics": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
@@ -28,24 +28,28 @@ def personal_characteristics(personId):
 def ascendent_report(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/horoscope/ascendant-report"
     params = {"personId": personId}
+    print("Here is the personId:2",params)
     response = requests.get(url, params=params)
     return {"ascendent_report": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def mahadasha_predictions(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/dashas/maha-dasha-predictions"
     params = {"personId": personId}
+    print("Here is the personId:3",params)
     response = requests.get(url, params=params)
     return {"mahadasha_predictions": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def manglik_dosh(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/dosha/manglik-dosh"
     params = {"personId": personId}
+    print("Here is the personId:4",params)
     response = requests.get(url, params=params)
     return {"manglik_dosh": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def kaalsarp_dosh(personId):
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/dosha/kaalsarp-dosh"
     params = {"personId": personId}
+    print("Here is the personId:5",params)
     response = requests.get(url, params=params)
     return {"kaalsarp_dosh": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
