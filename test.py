@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from groq import Groq
 
 
-
 load_dotenv()
 os.environ["GROQ_API_KEY"] = "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"
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
@@ -54,7 +53,7 @@ def kaalsarp_dosh(personId):
     return {"kaalsarp_dosh": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 
-def run_conversation(user_prompt):
+def run_conversation(user_prompt,person_Id):
     messages = [
         {
             "role": "system",
@@ -183,7 +182,7 @@ def run_conversation(user_prompt):
             function_name = tool_call.function.name
             function_to_call = available_functions[function_name]
             function_args = json.loads(tool_call.function.arguments)
-            function_response = function_to_call(personId=function_args.get("personId"))
+            function_response = function_to_call(personId=person_Id)
             
             messages.append(
                 {
@@ -218,7 +217,7 @@ def get_astrology_prediction():
     If you cannot determine which function to call, always use the 'personal_characteristics' function.
     """
 
-    prediction = run_conversation(full_prompt)
+    prediction = run_conversation(full_prompt,person_id)
 
     response = {
         "person_id": person_id,
