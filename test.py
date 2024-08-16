@@ -4,7 +4,6 @@ import os
 import requests
 from dotenv import load_dotenv
 from groq import Groq
-import streamlit as st 
 
 
 
@@ -24,36 +23,29 @@ def personal_characteristics(personId):
     return {"personal_characteristics": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def ascendent_report(personId):
-    #api_key = "94727561-cbcb-5587-bbe1-4faf6237ef4f"
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/horoscope/ascendant-report"
     params = {"personId": personId}
     response = requests.get(url, params=params)
     return {"ascendent_report": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def mahadasha_predictions(personId):
-    #api_key = "94727561-cbcb-5587-bbe1-4faf6237ef4f"
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/dashas/maha-dasha-predictions"
     params = {"personId": personId}
     response = requests.get(url, params=params)
     return {"mahadasha_predictions": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def manglik_dosh(personId):
-    #api_key = "94727561-cbcb-5587-bbe1-4faf6237ef4f"
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/dosha/manglik-dosh"
     params = {"personId": personId}
     response = requests.get(url, params=params)
     return {"manglik_dosh": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
 def kaalsarp_dosh(personId):
-    #api_key = "94727561-cbcb-5587-bbe1-4faf6237ef4f"
     url = "https://astrology-backend-ddcz.onrender.com/api/v1/api-function/dosha/kaalsarp-dosh"
     params = {"personId": personId}
     response = requests.get(url, params=params)
     return {"kaalsarp_dosh": response.json()} if response.status_code == 200 else {"error": "Failed to fetch data"}
 
-
-#response=personal_characteristics(dob="06/03/2000", lat="21.1255", lon="73.1122", tz=5.5, tob="10:00", lang='en')
-#print(response)
 
 def run_conversation(user_prompt):
     messages = [
@@ -164,7 +156,6 @@ def run_conversation(user_prompt):
     )
 
     response_message = response.choices[0].message
-    #print(f"Initial response: {response_message} \n")
 
     tool_calls = getattr(response_message, 'tool_calls', None)
     print(f"{tool_calls}")
@@ -213,7 +204,6 @@ def get_astrology_prediction():
     user_details = data.get("user_details")
     user_prompt = data.get("user_prompt")
 
-    # Create full prompt using user details
     full_prompt = f"""
     You are an astrology expert. The user does not understand astrology, so please answer in a way that is understandable and provide a short explanation. Keep the tone positive.
     Here is the user's question: {user_prompt}.
@@ -221,7 +211,6 @@ def get_astrology_prediction():
     If you cannot determine which function to call, always use the 'personal_characteristics' function.
     """
 
-    # Get prediction using LLM
     prediction = run_conversation(full_prompt)
 
     response = {
@@ -235,42 +224,4 @@ def get_astrology_prediction():
 if __name__ == '__main__':
      app.run(host='0.0.0.0', port=8000, debug=True)
      
-    
 
-# # user_prompt = "Please give me some points about challenges and remedies?. Here are the details: Date of birth: 06/03/2000, Time of birth: 10:00, Latitude: 28.7041, Longitude: 77.1025, Time zone: 5.5, Language: en."
-# # print(run_conversation(user_prompt))
-    
-# # Streamlit app
-# st.title("Astrology Chatbot")
-
-# st.write("Please provide your birth details to receive astrological insights.")
-
-# dob = st.text_input('Date of Birth (DD/MM/YYYY)')
-# tob = st.text_input('Time of Birth (HH:MM)')
-# lat = st.text_input('Latitude')
-# lon = st.text_input('Longitude')
-# tz = st.number_input('Time Zone')
-# lang = st.text_input('Language')
-
-# user_prompt = st.text_area('Enter your prompt')
-
-# if st.button('Get Prediction'):
-#     full_prompt = f"""
-#     You are an astrology expert, User do not understand astrology, so please answer which is understandable and with short explanation. 
-#     Also make sure to keep tone positive always. User will provide question and his basic birth details required by astrologer.
-#     Following is users questions:
-#     {user_prompt}. 
-#     Here are the details of the user: Date of birth: {dob}, Time of birth: {tob}, Latitude: {lat}, Longitude: {lon}, Time zone: {tz}, Language: {lang}
-
-#     Also, it may not be possible to determine which function to call, if question is open ended in that case always use 'personal_characteristics' function only. 
-#     """
-
-#     full_prompt_v2 =f"""
-#     You are an astrology expert, User do not understand astrology, so please answer which is understandable and with short explanation. Do not talk about planet and houses but answer in a conversational way.  
-#     Also make sure to keep tone positive always.
-#     {user_prompt} Here are the details of the user: Date of birth: {dob}, Time of birth: {tob}, Latitude: {lat}, Longitude: {lon}, Time zone: {tz}, Language: {lang}"""
-
-#     print("================================")
-#     print(full_prompt)
-#     prediction = run_conversation(full_prompt_v2)
-#     st.write(prediction)
